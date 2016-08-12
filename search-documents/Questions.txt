@@ -1,0 +1,17 @@
+Problem Statement: Relevance Scoring
+
+When a user submits a query to a search engine, the first thing the engine must do is to determine which pages(documents) in the index are related to the query. The goal of this task is to compute a relevance score. This score should gauge the similarity between the query and documents
+
+Data:
+1. data/: contains list of documents.
+2. query: contain list of queries
+
+Your solution to the problem should be written to a directory called "output/". The structure of the output directory should be such that 
+1.There should be a file generated for each query.
+2.The generated files should have same name as that of query.
+3.The generated file should consist of list of documents sorted by their relevence score in descending order.
+
+(PS: Not allowed to use information retrieval software library for example Apache Lucene, Elasticsearch etc.)
+
+
+ 

@@ -1,0 +1,8 @@
+data/modi_visit_us
+data/narendra_damodardas_modi
+data/foreign_investement _to_gujrat
+data/president_of_the_united_states
+data/hillary_diane_rodham_clinton
+data/barack_hussein_obama
+data/united_state_presidential_election_2016
+data/united_states_of_america

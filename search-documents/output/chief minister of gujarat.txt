@@ -1,0 +1,3 @@
+data/foreign_investement _to_gujrat
+data/narendra_damodardas_modi
+data/modi_visit_us

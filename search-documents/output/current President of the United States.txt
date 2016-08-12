@@ -1,0 +1,7 @@
+data/barack_hussein_obama
+data/hillary_diane_rodham_clinton
+data/united_state_presidential_election_2016
+data/president_of_the_united_states
+data/united_states_of_america
+data/obama
+data/narendra_damodardas_modi
