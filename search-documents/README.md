@@ -3,6 +3,7 @@
 ### Requirements:
 - python3
 - pip3
+
 Any python / pip referred subsequently refers to major version 3. It might also work on py 2.7, but I haven't tested it.
 
 ### Installation:
@@ -14,15 +15,18 @@ Install the package dependencies using the following command:
 The documents need to be indexed before you can begin searching.
 To index the documents, place them inside the `data/` folder, and run:
 `python IndexingService.py`
+
 This will create the `index.p` which is an index persisted on disk. For existing data, this has already been created.
 
 ### Searching
 To search and store all results in the `output/` folder run:
 `python QuerySystem.py`
+
 This will query all queries in the `query.txt` file and store results in the `output` folder in decreasing order of relevance for each query in a separate file.
 
 For a custom query, just pass the query as a command line argument:
 `python QuerySystem.py "current President of the United States"`
+
 This will return results on stdout, with relevance scores like:
 ```
 data/barack_hussein_obama : 139.57060293948518
