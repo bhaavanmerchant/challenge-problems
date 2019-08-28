@@ -2,9 +2,11 @@ import logging
 
 class Transformer:
 
-    def nested_transformer(self, input_dict, nest_keys):
+    def nested_transformer(self, input_list, nest_keys):
+        logging.debug(input_list)
+        logging.debug(nest_keys)
         output = {}
-        for input_entry in input_dict:
+        for input_entry in input_list:
             parent = output
             stripped_leaf = self._get_cherry_picked_dict(input_entry, input_entry.keys() - nest_keys)
             for nest_key in nest_keys:
@@ -16,6 +18,7 @@ class Transformer:
                 elif nest_value not in parent:
                     parent[nest_value] = {}
                 parent = parent[nest_value]
+        logging.debug(output)
         return output
 
     def _get_cherry_picked_dict(self, input_dict, key_list):
