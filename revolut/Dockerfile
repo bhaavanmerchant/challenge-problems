@@ -9,4 +9,6 @@ ARG FLASK_APP=server/app.py
 
 COPY . .
 
+EXPOSE 5000/tcp
+
 CMD [ "python", "-m", "flask", "run" ]
