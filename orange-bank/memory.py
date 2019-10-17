@@ -1,3 +1,4 @@
+from collections import Counter
 
 class Memory:
 
@@ -6,14 +7,13 @@ class Memory:
 
     def increase_counter(self, country, topic):
         if country not in self.mem:
-            self.mem[country] = {}
-        if topic not in self.mem[country]:
-            self.mem[country][topic] = 1
-        else:
-            self.mem[country][topic] += 1
+            self.mem[country] = Counter()
+        self.mem[country][topic] += 1
 
-    def print_memory(self):
+    def decrease_counter(self, country, topic):
+        self.mem[country][topic] -= 1
+
+    def print_memory(self, top_n = 10):
         for country in self.mem:
-            for t in self.mem[country]:
-                if self.mem[country][t] > 1:
-                    print(self.mem[country][t])
+            print(country)
+            print([(topic.topic_name, count) for (topic, count) in self.mem[country].most_common(top_n)])

@@ -5,3 +5,6 @@ class Topic:
 
     def __hash__(self):
         return hash(self.urlkey)
+
+    def __eq__(self, another):
+        return hasattr(another, 'urlkey') and self.urlkey == another.urlkey

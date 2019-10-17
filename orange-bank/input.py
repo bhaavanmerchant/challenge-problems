@@ -4,7 +4,7 @@ import json
 import requests
 
 class Input:
-    def __init__(self, method = 'api'):
+    def __init__(self, method):
         if method not in ['api', 'file']:
             raise ValueError('method is only allowed to be api or file')
         self.method = method
