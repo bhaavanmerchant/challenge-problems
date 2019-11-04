@@ -25,4 +25,14 @@ public class GameTest {
         Game classUnderTest = new Game(rounds);
         assertTrue("game defaults to correct rounds on unreasonable number of rounds", classUnderTest.num_rounds == rounds);
     }
+
+    @Test public void testInitializesABot() {
+        Game classUnderTest = new Game(10);
+        assertTrue("game initializes a bot", classUnderTest.players.get(0).player_type == Player.type.BOT);
+    }
+
+    @Test public void testInitializesAHuman() {
+        Game classUnderTest = new Game(10);
+        assertTrue("game initializes a bot", classUnderTest.players.get(0).player_type == Player.type.Human);
+    }
 }
