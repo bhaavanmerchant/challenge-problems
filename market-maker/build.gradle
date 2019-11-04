@@ -30,7 +30,7 @@ dependencies {
 
 application {
     // Define the main class for the application
-    mainClassName = 'project.App'
+    mainClassName = 'com.bhaavan.assignment.App'
 }
 
 task runWithJavaExec(type: JavaExec) {
@@ -38,5 +38,5 @@ task runWithJavaExec(type: JavaExec) {
     description = "Run the main class with JavaExecTask"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
-    main = 'project.App'
+    main = 'com.bhaavan.assignment.App'
 }

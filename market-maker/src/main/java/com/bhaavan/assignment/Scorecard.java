@@ -1,11 +1,12 @@
-package project;
+package com.bhaavan.assignment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Scorecard {
     HashMap<Player, Integer> results = new HashMap<>();
-    public Scorecard(Player[] players) {
+    public Scorecard(ArrayList<Player> players) {
         for (Player player : players) {
             results.put(player, 0);
         }
