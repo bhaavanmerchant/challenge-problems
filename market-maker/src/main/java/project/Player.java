@@ -12,12 +12,13 @@ public class Player {
     Type player_type;
 
     public Player(boolean is_human) {
+        name = generate_random_name();
         if (is_human) {
             player_type = Type.HUMAN;
         } else {
             player_type = Type.BOT;
+            name = "BOT_" + name;
         }
-        name = generate_random_name();
     }
 
     public String generate_random_name() {
