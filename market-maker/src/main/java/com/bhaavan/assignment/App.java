@@ -8,6 +8,7 @@ import com.google.common.io.Resources;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
@@ -31,7 +32,12 @@ public class App {
         System.out.println(new App().getGreeting());
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the number of games to be played:");
-        int number_of_rounds = input.nextInt();
+        int number_of_rounds = -1;
+        try {
+            number_of_rounds = input.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("You entered invalid data.");
+        }
         Arena arena = new Arena(number_of_rounds);
         arena.start();
     }
