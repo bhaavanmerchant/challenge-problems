@@ -21,3 +21,10 @@ You can run the code using
 java -jar build/libs/com.bhaavan.assignment.jar 
 ```
 
+Test
+
+You can test the code using
+```
+docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle gradle test
+```
+
