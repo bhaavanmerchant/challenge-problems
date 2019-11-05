@@ -45,7 +45,7 @@ public class RockPaperScissor implements Game {
         return Results.WIN;
     }
 
-    Map<Integer, String> map = ImmutableMap.of(1,"Rock \uD83D\uDC4A", 2, "Paper \uD83D\uDD90", 3, "Scissor ✌");
+    final Map<Integer, String> map = ImmutableMap.of(1,"Rock \uD83D\uDC4A", 2, "Paper \uD83D\uDD90", 3, "Scissor ✌");
 
     @Override
     public Results play(Player player1, Player player2) {
