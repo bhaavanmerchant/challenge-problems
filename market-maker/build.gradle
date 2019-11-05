@@ -33,10 +33,8 @@ application {
     mainClassName = 'com.bhaavan.assignment.App'
 }
 
-task runWithJavaExec(type: JavaExec) {
-    group = "Execution"
-    description = "Run the main class with JavaExecTask"
-    classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in
-    main = 'com.bhaavan.assignment.App'
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.bhaavan.assignment.App'
+    }
 }

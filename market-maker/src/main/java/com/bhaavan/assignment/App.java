@@ -3,29 +3,33 @@
  */
 package com.bhaavan.assignment;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
-
-import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    private final String SPLASH_ART_FILE = "SplashArt.txt";
-
-    private String readResource(final String fileName, Charset charset) throws IOException {
-        return Resources.toString(Resources.getResource(fileName), charset);
-    }
+    private final String SPLASH_ART_FILE = "/SplashArt.txt";
 
     public String getGreeting() {
         String fixture = new String();
         try {
-            fixture = readResource(SPLASH_ART_FILE, Charsets.UTF_8);
+            fixture = readResource(SPLASH_ART_FILE);
         } catch (IOException io_ex) {
-            // TODO: log error
+            System.out.println(io_ex);
+            System.out.println("Couldn't fetch all resources. Proceeding anyway.");
         }
         return fixture;
+    }
+
+    private String readResource(final String fileName) throws IOException {
+        InputStream in = getClass().getResourceAsStream(fileName);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String output = "";
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            output = output + '\n' + line;
+        }
+        return output;
     }
 
     public static void main(String[] args) {

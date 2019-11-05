@@ -1,7 +1,5 @@
 package com.bhaavan.assignment;
 
-import com.google.common.collect.ImmutableMap;
-
 import java.util.*;
 
 public class RockPaperScissor implements Game {
@@ -45,7 +43,13 @@ public class RockPaperScissor implements Game {
         return Results.WIN;
     }
 
-    final Map<Integer, String> map = ImmutableMap.of(1,"Rock \uD83D\uDC4A", 2, "Paper \uD83D\uDD90", 3, "Scissor ✌");
+    Map<Integer, String> map = new HashMap<>();
+
+    public RockPaperScissor() {
+        map.put(1, "Rock \uD83D\uDC4A");
+        map.put(2, "Paper \uD83D\uDD90");
+        map.put(3, "Scissor ✌");
+    }
 
     @Override
     public Results play(Player player1, Player player2) {
@@ -56,6 +60,7 @@ public class RockPaperScissor implements Game {
         int playerOneMove = get_input(player1);
         int playerTwoMove = get_input(player2);
         System.out.println(player2.name + " played " + map.get(playerTwoMove));
+        System.out.println("");
         Results r = judge_game(playerOneMove, playerTwoMove);
         if (r == Results.WIN) {
             System.out.println("You win!");
@@ -64,6 +69,7 @@ public class RockPaperScissor implements Game {
         } else {
             System.out.println("You lose!");
         }
+        System.out.println("\n");
         return r;
     }
 }
