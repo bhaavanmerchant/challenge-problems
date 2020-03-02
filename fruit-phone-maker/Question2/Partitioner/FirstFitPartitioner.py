@@ -1,26 +1,27 @@
-from typing import Dict
+from typing import List, Tuple
 
 import collections
 
 class FirstFitPartitioner:
-    EFFICIENCY_FACTOR = 0.8 # This is a NP hard problem. Given that we need to rely on heuristics, our final solution will not be fully efficienct, and therefore we need to accomodate inefficiency.
-
-    def __init__(self, K: int, counts: Dict[str, int]):
-        total_size = sum(counts.values())
+    def __init__(self, K: int, counts: List[Tuple[int, str]]):
+        total_size = sum([c[0] for c in counts])
         avg_bin_size = total_size / K # Since we assume an exponential distribution, f(x) = lambda * e ** (- lambda * x), we can assume most values will be less that the average value
 
-        target_bin_size = avg_bin_size / FirstFitPartitioner.EFFICIENCY_FACTOR
+        target_bin_size = avg_bin_size * (1 + 1/K**1.2) # Applying a smoothening function, to allow misfitting for smaller K values
 
         self.partitionAssignment = {}
         partitionSize = [0] * K
 
-        for partitionStr in counts:
-            i = 0
-            while i < K and counts[partitionStr] + partitionSize[i] > target_bin_size:
+        counts.sort(key=lambda k: k[0], reverse=True)
+        i = 0
+        for count, partitionStr in counts:
+            jumps = 0
+            while count + partitionSize[i] > target_bin_size and jumps < K:
                 i += 1
-            if i < K:
-                self.partitionAssignment[partitionStr] = i
-                partitionSize[i] += counts[partitionStr]
+                jumps += 1
+                i = i % K
+            self.partitionAssignment[partitionStr] = i
+            partitionSize[i] += count
 
         self.partitionSize = partitionSize
 
@@ -32,4 +33,5 @@ class FirstFitPartitioner:
     def _getBinLoad(self):
         biggestBin = max(self.partitionSize)
         occupancyFactor = sum(self.partitionSize) / (biggestBin * len(self.partitionSize))
+
         return occupancyFactor
