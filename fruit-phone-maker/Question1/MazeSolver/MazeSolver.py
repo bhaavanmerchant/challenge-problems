@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-import collections
+import heapq
 
 class MazeSolver:
      def nextPositions(self, node: Tuple[int, int]) -> List[Tuple[int, int]]:
@@ -28,17 +28,19 @@ class MazeSolver:
           self.grid = grid
           self.grid_dims = self._compute_grid_dimensions()
 
-          to_visit = collections.deque()
-          to_visit.append(src)
+          to_visit = [(abs(src[0]- dst[0]) + abs(src[1]- dst[1]), src)]
+          heapq.heapify(to_visit)
           visited_nodes = set()
 
           while len(to_visit) > 0:
-               node = to_visit.popleft()
+               _, node = heapq.heappop(to_visit)
+
                if node == dst:
                     return True
                if node not in visited_nodes:
                     moves = self.nextPositions(node)
-                    to_visit += moves
+                    for move in moves:
+                         heapq.heappush(to_visit, (abs(move[0]- dst[0]) + abs(move[1]- dst[1]), move))
                     visited_nodes.add(node)
 
           return False
