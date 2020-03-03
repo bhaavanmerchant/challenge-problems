@@ -31,6 +31,12 @@ This solution prevents a massive computation at the initialization of the partit
 
 However, given that strict assumption required, which may not be true for non-parametric data, I preferred to use the bin packing solution which is approximately correct.
 
+## Scale
+Given the requirements, this solution is able to produce results for millions of user ids and thousands of partition. However, given the choice of python as a language, a massive penalty is being incurred in serializing and deserializing nd_arrays to pyobjects, which slows down the computation a little bit. Given that this cost is a one time cost, this algorithm is still tractable. However, I would prefer to use Scala / Java which would allow the data to be accessed at minimal copying cost, and would integrate well with the Spark infrastructure, when building a production system. Ability to use vectorization (AVX), through these languages, will provide significant boost to performance.
+
+Furthermore, I would consider dividng the data into as many cores / threads, and then ask each executor to bin pack a chunk of data into an equal fraction of bins.
+Potentially, using GPU's multi cores (or similar hardware accelerators) is also an option, and we can write kernels to distribute work on them.
+
 ## Results
 For large numpy generated data, spread over 10k partitions, we are able to achieve 99%+ packing efficiency.
 
