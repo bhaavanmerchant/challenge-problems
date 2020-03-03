@@ -5,9 +5,9 @@ from MazeSolver import MazeSolver
 class TestMazeSolver(unittest.TestCase):
     def test_connected(self):
         grid = [
-            [0,1,0],
-            [0,0,0],
-            [0,1,0]
+            [False,True,False],
+            [False,False,False],
+            [False,True,False]
         ]
         src = (0,0)
         dest = (2,2)
@@ -15,9 +15,9 @@ class TestMazeSolver(unittest.TestCase):
 
     def test_disconnected(self):
         grid = [
-            [0,1,0],
-            [0,1,0],
-            [0,1,0]
+            [False,True,False],
+            [False,True,False],
+            [False,True,False]
         ]
         src = (0,0)
         dest = (2,2)
@@ -26,33 +26,33 @@ class TestMazeSolver(unittest.TestCase):
     def test_connected_big(self):
         SIZE = 9999
         grid = [ ]
-        row_init = [0] * SIZE
+        row_init = [False] * SIZE
         for i in range(SIZE):
             grid.append(row_init)
         src = (0,0)
         for i in range(SIZE):
-            grid[i][875] = 1
-        grid[575][875] = 0
+            grid[i][875] = True
+        grid[575][875] = False
         dest = (SIZE - 1, SIZE - 1)
         self.assertTrue(MazeSolver(grid).isConnected(src[0], src[1], dest[0], dest[1]))
 
     def test_disconnected_big(self):
         SIZE = 9999
         grid = [ ]
-        row_init = [1] * SIZE
+        row_init = [True] * SIZE
         for i in range(SIZE):
             grid.append(row_init)
         src = (0,0)
         dest = (SIZE - 1, SIZE - 1)
-        grid[src[0]][src[1]] = 0
-        grid[dest[0]][dest[1]] = 0
+        grid[src[0]][src[1]] = False
+        grid[dest[0]][dest[1]] = False
         self.assertFalse(MazeSolver(grid).isConnected(src[0], src[1], dest[0], dest[1]))
 
     def test_next_position(self):
         grid = [
-            [1, 1, 0],
-            [0, 0, 0],
-            [1, 0, 1]
+            [True, True, False],
+            [False, False, False],
+            [True, False, True]
         ]
         res_centre = MazeSolver(grid).nextPositions((1,1))
         res_centre.sort()
@@ -63,17 +63,17 @@ class TestMazeSolver(unittest.TestCase):
 
     def test_grid_dims(self):
         grid = [
-            [1, 1, 0],
-            [0, 0, 0],
-            [1, 0, 1]
+            [True, True, False],
+            [False, False, False],
+            [True, False, True]
         ]
         self.assertEqual(MazeSolver(grid)._compute_grid_dimensions(), (3,3))
 
     def test_distance_heuristics(self):
         grid = [
-            [1, 1, 0],
-            [0, 0, 0],
-            [1, 0, 1]
+            [True, True, False],
+            [False, False, False],
+            [True, False, True]
         ]
         self.assertEqual(MazeSolver(grid)._get_distance_heuristic((0,0), (2,2)), 4)
 

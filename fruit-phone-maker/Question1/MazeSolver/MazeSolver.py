@@ -3,7 +3,7 @@ from typing import List, Tuple
 import heapq
 
 class MazeSolver:
-     def __init__(self, grid: List[List[int]]):
+     def __init__(self, grid: List[List[bool]]):
           self.grid = grid
           self.grid_dims = self._compute_grid_dimensions()
 
@@ -16,7 +16,7 @@ class MazeSolver:
           possiblePositions = []
           for position in allPositions:
                if position[0] >= 0 and position[0] < self.grid_dims[0] and position[1] >= 0 and position[1] < self.grid_dims[1]:
-                    if self.grid[position[0]][position[1]] == 0:
+                    if self.grid[position[0]][position[1]] == False:
                          possiblePositions.append(position)
           return possiblePositions
 
