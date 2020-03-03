@@ -3,7 +3,12 @@ from typing import List, Tuple
 import heapq
 
 class MazeSolver:
+     def __init__(self, grid: List[List[int]]):
+          self.grid = grid
+          self.grid_dims = self._compute_grid_dimensions()
+
      def nextPositions(self, node: Tuple[int, int]) -> List[Tuple[int, int]]:
+          """Get possible positions you can traverse on the grid from position node"""
           (i, j) = node
           allPositions = [
                (i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)
@@ -16,19 +21,22 @@ class MazeSolver:
           return possiblePositions
 
      def _compute_grid_dimensions(self):
+          """Compute the grid dimensions and store them in the instance variable self.grid_column_dims"""
           grid_row_dims = len(self.grid)
           grid_column_dims = 0
           if grid_row_dims > 0:
                grid_column_dims = len(self.grid[0])
           return (grid_row_dims, grid_column_dims)
 
-     def isConnected(self, grid: List[List[int]], aX: int, aY: int, bX: int, bY: int) -> bool:
+     def _get_distance_heuristic(self, node1: Tuple[int, int], node2: Tuple[int, int]) -> int:
+          """Get a heuristic of the distance between two node. For now we use Manhattan Distance."""
+          return abs(node1[0]- node2[0]) + abs(node1[1]- node2[1])
+
+     def isConnected(self, aX: int, aY: int, bX: int, bY: int) -> bool:
+          """See if two points (aX, aY) and (bX, bY) are connected on the graph"""
           src, dst = (aX, aY), (bX, bY)
 
-          self.grid = grid
-          self.grid_dims = self._compute_grid_dimensions()
-
-          to_visit = [(abs(src[0]- dst[0]) + abs(src[1]- dst[1]), src)]
+          to_visit = [(self._get_distance_heuristic(src, dst), src)]
           heapq.heapify(to_visit)
           visited_nodes = set()
 
@@ -40,7 +48,7 @@ class MazeSolver:
                if node not in visited_nodes:
                     moves = self.nextPositions(node)
                     for move in moves:
-                         heapq.heappush(to_visit, (abs(move[0]- dst[0]) + abs(move[1]- dst[1]), move))
+                         heapq.heappush(to_visit, (self._get_distance_heuristic(move, dst), move))
                     visited_nodes.add(node)
 
           return False

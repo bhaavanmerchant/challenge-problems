@@ -11,7 +11,7 @@ class TestMazeSolver(unittest.TestCase):
         ]
         src = (0,0)
         dest = (2,2)
-        self.assertTrue(MazeSolver().isConnected(grid, src[0], src[1], dest[0], dest[1]))
+        self.assertTrue(MazeSolver(grid).isConnected(src[0], src[1], dest[0], dest[1]))
 
     def test_disconnected(self):
         grid = [
@@ -21,7 +21,7 @@ class TestMazeSolver(unittest.TestCase):
         ]
         src = (0,0)
         dest = (2,2)
-        self.assertFalse(MazeSolver().isConnected(grid, src[0], src[1], dest[0], dest[1]))
+        self.assertFalse(MazeSolver(grid).isConnected(src[0], src[1], dest[0], dest[1]))
 
     def test_connected_big(self):
         SIZE = 9999
@@ -34,7 +34,49 @@ class TestMazeSolver(unittest.TestCase):
             grid[i][875] = 1
         grid[575][875] = 0
         dest = (SIZE - 1, SIZE - 1)
-        self.assertTrue(MazeSolver().isConnected(grid, src[0], src[1], dest[0], dest[1]))
+        self.assertTrue(MazeSolver(grid).isConnected(src[0], src[1], dest[0], dest[1]))
+
+    def test_disconnected_big(self):
+        SIZE = 9999
+        grid = [ ]
+        row_init = [1] * SIZE
+        for i in range(SIZE):
+            grid.append(row_init)
+        src = (0,0)
+        dest = (SIZE - 1, SIZE - 1)
+        grid[src[0]][src[1]] = 0
+        grid[dest[0]][dest[1]] = 0
+        self.assertFalse(MazeSolver(grid).isConnected(src[0], src[1], dest[0], dest[1]))
+
+    def test_next_position(self):
+        grid = [
+            [1, 1, 0],
+            [0, 0, 0],
+            [1, 0, 1]
+        ]
+        res_centre = MazeSolver(grid).nextPositions((1,1))
+        res_centre.sort()
+        res_boundary = MazeSolver(grid).nextPositions((1,2))
+        res_boundary.sort()
+        self.assertEqual(res_centre, [(1, 0), (1, 2), (2, 1)])
+        self.assertEqual(res_boundary, [(0, 2), (1, 1)])
+
+    def test_grid_dims(self):
+        grid = [
+            [1, 1, 0],
+            [0, 0, 0],
+            [1, 0, 1]
+        ]
+        self.assertEqual(MazeSolver(grid)._compute_grid_dimensions(), (3,3))
+
+    def test_distance_heuristics(self):
+        grid = [
+            [1, 1, 0],
+            [0, 0, 0],
+            [1, 0, 1]
+        ]
+        self.assertEqual(MazeSolver(grid)._get_distance_heuristic((0,0), (2,2)), 4)
+
 
 
 if __name__ == '__main__':
